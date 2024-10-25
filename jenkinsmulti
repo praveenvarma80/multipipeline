@@ -1,39 +1,21 @@
-@Library('praveen')_
 pipeline
 {
     agent any
     stages
     {
-        stage('loanDownload')
+        stage('contdownloads')
         {
             steps
             {
-                script
-                {
-                    math.gitDownload("maven")
-                }
-            }
-        } 
-        stage('loanBuild')
-        {
-            steps
-            {
-                script
-                {
-                    math.buildArtifact()
-                }
+                git 'https://github.com/praveenvarma80/maven.git'
             }
         }
-         stage('loanDeployment')
+        stage('contbuild')
         {
             steps
             {
-                script
-                {
-                    math.deployTomcat("library","172.31.31.145","testapp")
-                }
+                sh 'mvn package'
             }
         }
-       
     }
 }
