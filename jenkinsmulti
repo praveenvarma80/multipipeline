@@ -4,7 +4,7 @@ pipeline
     agent any
     stages
     {
-        stage('masterDownload')
+        stage('loanDownload')
         {
             steps
             {
@@ -14,7 +14,7 @@ pipeline
                 }
             }
         } 
-        stage('masterBuild')
+        stage('loanBuild')
         {
             steps
             {
@@ -24,7 +24,7 @@ pipeline
                 }
             }
         }
-         stage('masterDeployment')
+         stage('loanDeployment')
         {
             steps
             {
@@ -34,26 +34,6 @@ pipeline
                 }
             }
         }
-         stage('masterTesting')
-        {
-            steps
-            {
-                script
-                {
-                    math.gitDownload("funtionalTesting")
-                    math.RunSelenium("library")
-                }
-            }
-        }
-        stage('masterDelivery')
-        {
-            steps
-            {
-                script
-                {
-                    math.deployTomcat("library","172.31.17.184","prodapp")
-                }
-            }
-        }
+       
     }
 }
