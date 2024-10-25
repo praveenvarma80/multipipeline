@@ -1,58 +1,20 @@
-@Library('praveen')_
 pipeline
 {
     agent any
     stages
     {
-        stage('masterDownload')
+        stage('contdownloads')
         {
             steps
             {
-                script
-                {
-                    math.gitDownload("maven")
-                }
-            }
-        } 
-        stage('masterBuild')
-        {
-            steps
-            {
-                script
-                {
-                    math.buildArtifact()
-                }
+                git 'https://github.com/praveenvarma80/maven.git'
             }
         }
-         stage('masterDeployment')
+        stage('contbuild')
         {
             steps
             {
-                script
-                {
-                    math.deployTomcat("library","172.31.31.145","testapp")
-                }
-            }
-        }
-         stage('masterTesting')
-        {
-            steps
-            {
-                script
-                {
-                    math.gitDownload("funtionalTesting")
-                    math.RunSelenium("library")
-                }
-            }
-        }
-        stage('masterDelivery')
-        {
-            steps
-            {
-                script
-                {
-                    math.deployTomcat("library","172.31.17.184","prodapp")
-                }
+                sh 'mvn package'
             }
         }
     }
